@@ -178,7 +178,6 @@ Mouse & Maze & Running \& turning & Cheese & Most direct path to cheese\\
 \begin{itemize}
 \item Upper Convergence Bound (UCB)
 \end{itemize}
-
 \begin{equation}
 Score_{j}^{t}=\bar{x}_{j}^{t}+\sqrt{\frac{c\times ln\sum_{k}p_{k}^{t}}{p_{j}^{t}}}
 \end{equation}
@@ -190,8 +189,64 @@ Score_{j}^{t}=\bar{x}_{j}^{t}+\sqrt{\frac{c\times ln\sum_{k}p_{k}^{t}}{p_{j}^{t}
 \end{itemize}
 \end{frame}
 
+\begin{frame}[t]{Quadratic Assignment Problem (QAB)} %\vspace{10pt}
+\small
+\begin{itemize}
+\item The quadratic assignment problem (QAB) is a combinatorial optimization problem introduced by Koopmans and Beckmann in 1957 as a formal model for allocating economical facilities.
+\item There are a number of facilities to assign to the same number of locations in an optimal way.
+\item A mutual distance is given between locations.
+\item Also, a mutual flow is given between facilities which quantifies the mutual interaction between facilities.
+\item The aim is to minimize the cost function.
+\item The QAP has been proven to be NP-hard ($N!$ solutions).
+\end{itemize}
+\end{frame}
 
 
+
+\begin{frame}[t]{Quadratic Assignment Problem (QAB)} %\vspace{10pt}
+\tiny
+\begin{equation}
+D=
+\left[ \begin{array}{ll}
+d_{11} \quad \cdots \quad d_{1N}\\
+d_{21} \quad \cdots \quad d_{2N}\\
+\vdots  \quad \quad \ddots \quad \quad \vdots\\
+d_{N1}  \quad \cdots \quad d_{NN}
+\end{array} \right],
+F=
+\left[ \begin{array}{ll}
+f_{11} \quad \cdots \quad f_{1N}\\
+f_{21} \quad \cdots \quad f_{2N}\\
+\vdots  \quad \quad \ddots \quad \quad \vdots\\
+f_{N1}  \quad \cdots \quad f_{NN}
+\end{array} \right], \quad
+d_{11},f_{11}=d_{22},f_{22}=\cdots=d_{NN},f_{NN}=0
+\end{equation}
+\begin{equation}
+\pi()=[\pi(1) \quad \pi(2) \quad \cdots \quad \pi(N)], \quad
+1 \leq \pi(1),\pi(2),\cdots,\pi(N) \leq N, \quad
+cost(\pi)=\sum_{i=1}^{N}\sum_{j=1}^{N}f_{ij}d_{\pi(i)\pi(j)}
+\end{equation}
+\begin{center}
+\includegraphics[scale=0.3]{Fac}
+\end{center}
+\end{frame}
+
+\begin{frame}[t]{MAB for Solving QAB} %\vspace{10pt}
+\footnotesize
+\begin{center}
+\begin{tabular}{ l }
+$Population(rnd)\leftarrow\{\pi_{1}^{rnd},\pi_{2}^{rnd},\cdots,\pi_{ps}^{rnd}\}$\\ 
+$Populaion(0)\leftarrow LOCAL\_SEARCH(Population(rnd))$\\  
+\textbf{Repeat}\\
+$A^t\leftarrow SELECT\_SUBSET(Population(t))$\\
+$\pi_{i}^{tmp}\leftarrow BUILD\_SOLUTION(A^t,\pi_{i}^{t})$\\
+$\pi_{i}^{new}\leftarrow LOCAL\_SEARCH(\pi_{i}^{tmp})$\\  
+
+\textbf{Until}
+\end{tabular}
+\end{center}
+\end{frame}
 
 
 
