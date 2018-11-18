@@ -1,5 +1,7 @@
 \documentclass{beamer}
 
+\usepackage{amsmath}
+
 \usetheme[progressbar=frametitle]{metropolis}
 \setbeamertemplate{frame numbering}[fraction]
 \useoutertheme{metropolis}
@@ -43,11 +45,11 @@
 			\item Upper Convergence Bound
 			\end{itemize}
 		\end{itemize}		
-\item Quadratic Assignment Problem (QAB)
+\item Quadratic Assignment Problem (QAP)
 		\begin{itemize}
 		\item Problem Statement		
 			\begin{itemize}		
-			\item MAB for Solving QAB			
+			\item MAB for Solving QAP			
 			\end{itemize}
 		\end{itemize}
 \end{enumerate}
@@ -71,7 +73,7 @@
 \begin{itemize}
 \item Goals
 	\begin{itemize}
-	\item Agents interacts dynamically with its environment, moves from one state to another.
+	\item Agents interact dynamically with its environment, moves from one state to another.
 	\item Based on the actions taken by the agent, rewards are given.
 	\item Guidelines for which action to take in each state is called a policy.
 	\item Try to efficiently find an optimal policy in which rewards are maximized.
@@ -83,23 +85,6 @@
 \end{itemize}
 \end{frame}
 
-
-
-\begin{frame}[t]{Introduction to Reinforcement Learning} %\vspace{10pt}
-\textbf{Reinforcement Learning vs Supervised Learning}
-\begin{itemize}
-\item Supervised Learning
-	\begin{itemize}
-	\item Learning from examples (Dataset) provided by knowledgeable external supervisor.
-	\item For any state that the agent may be in, the supervisor can supply enough relevant examples of the outcomes which result from similar states so that we may make an accurate prediction.
-	\end{itemize}
-\item Reinforcement Learning
-	\begin{itemize}
-	\item No supervisor exists.
-	\item Agent must learn from experience as it explore the range of possible states.
-	\end{itemize}
-\end{itemize}
-\end{frame}
 
 
 \begin{frame}[t]{Introduction to Reinforcement Learning} %\vspace{10pt}
@@ -135,7 +120,7 @@
 \hline
 \textbf{Agent} & \textbf{Environment} & \textbf{Actions} & \textbf{Rewards} & \textbf{Policy}\\ 
 \hline
-Board game player & Set of all game configs. & Legal & Winning the game & Optimal strategy\\
+Chess player & Set of all game configs. & Legal & Winning the game & Optimal strategy\\
 Mouse & Maze & Running \& turning & Cheese & Most direct path to cheese\\
 \hline
 \end{tabular}}
@@ -144,7 +129,7 @@ Mouse & Maze & Running \& turning & Cheese & Most direct path to cheese\\
 
 
 \begin{frame}[t]{Introduction to Reinforcement Learning} %\vspace{10pt}
-\begin{itemize}
+	\begin{itemize}
 \item Exploration \& Exploitation
 	\begin{itemize}
 	\item In the absence of a supervisor, the agent must explore the environment in order to gain information about rewards, while exploiting its current information to maximize its rewards.
@@ -156,6 +141,15 @@ Mouse & Maze & Running \& turning & Cheese & Most direct path to cheese\\
 \includegraphics[scale=0.45]{multi}
 \end{center}
 \end{frame}
+
+\begin{frame}[t]{The Paper Which I'm Going to Present} %\vspace{10pt}
+\begin{center}
+\includegraphics[scale=0.50]{paper.pdf}
+\end{center}
+
+\end{frame}
+
+
 
 \begin{frame}[t]{Multi-Armed Bandit (MAB) Problem} %\vspace{10pt}
 \begin{itemize}
@@ -189,10 +183,10 @@ Score_{j}^{t}=\bar{x}_{j}^{t}+\sqrt{\frac{c\times ln\sum_{k}p_{k}^{t}}{p_{j}^{t}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[t]{Quadratic Assignment Problem (QAB)} %\vspace{10pt}
+\begin{frame}[t]{Quadratic Assignment Problem (QAP)} %\vspace{10pt}
 \small
 \begin{itemize}
-\item The quadratic assignment problem (QAB) is a combinatorial optimization problem introduced by Koopmans and Beckmann in 1957 as a formal model for allocating economical facilities.
+\item The quadratic assignment problem (QAP) is a combinatorial optimization problem introduced by Koopmans and Beckmann in 1957 as a formal model for allocating economical facilities.
 \item There are a number of facilities to assign to the same number of locations in an optimal way.
 \item A mutual distance is given between locations.
 \item Also, a mutual flow is given between facilities which quantifies the mutual interaction between facilities.
@@ -203,7 +197,7 @@ Score_{j}^{t}=\bar{x}_{j}^{t}+\sqrt{\frac{c\times ln\sum_{k}p_{k}^{t}}{p_{j}^{t}
 
 
 
-\begin{frame}[t]{Quadratic Assignment Problem (QAB)} %\vspace{10pt}
+\begin{frame}[t]{Quadratic Assignment Problem (QAP)} %\vspace{10pt}
 \tiny
 \begin{equation}
 D=
@@ -223,33 +217,122 @@ f_{N1}  \quad \cdots \quad f_{NN}
 d_{11},f_{11}=d_{22},f_{22}=\cdots=d_{NN},f_{NN}=0
 \end{equation}
 \begin{equation}
-\pi()=[\pi(1) \quad \pi(2) \quad \cdots \quad \pi(N)], \quad
+\Pi()=[\pi(1) \quad \pi(2) \quad \cdots \quad \pi(N)], \quad
 1 \leq \pi(1),\pi(2),\cdots,\pi(N) \leq N, \quad
-cost(\pi)=\sum_{i=1}^{N}\sum_{j=1}^{N}f_{ij}d_{\pi(i)\pi(j)}
+cost(\Pi)=\sum_{i=1}^{N}\sum_{j=1}^{N}f_{ij}d_{\pi(i)\pi(j)}
 \end{equation}
 \begin{center}
 \includegraphics[scale=0.3]{Fac}
 \end{center}
 \end{frame}
 
-\begin{frame}[t]{MAB for Solving QAB} %\vspace{10pt}
+
+\begin{frame}[t]{MAB for Solving QAP} %\vspace{10pt}
+\textbf{Development Process}
 \footnotesize
 \begin{center}
 \begin{tabular}{ l }
-$Population(rnd)\leftarrow\{\pi_{1}^{rnd},\pi_{2}^{rnd},\cdots,\pi_{ps}^{rnd}\}$\\ 
+$Population(rnd)\leftarrow\{\Pi_{1}^{rnd},\Pi_{2}^{rnd},\cdots,\Pi_{ps}^{rnd}\}$\\ 
 $Populaion(0)\leftarrow LOCAL\_SEARCH(Population(rnd))$\\  
 \textbf{Repeat}\\
-$A^t\leftarrow SELECT\_SUBSET(Population(t))$\\
-$\pi_{i}^{tmp}\leftarrow BUILD\_SOLUTION(A^t,\pi_{i}^{t})$\\
-$\pi_{i}^{new}\leftarrow LOCAL\_SEARCH(\pi_{i}^{tmp})$\\  
-
-\textbf{Until}
+\quad $A^t\leftarrow SELECT\_SUBSET(Population(t))$\\
+\quad $\Pi_{i}^{tmp}\leftarrow BUILD\_SOLUTION(A^t,\Pi_{i}^{t})$\\
+\quad $\Pi_{i}^{new}\leftarrow LOCAL\_SEARCH(\Pi_{i}^{tmp})$\\  
+\quad \textbf{If cost} ($\Pi_{i}^{new}$) $\leq$ \textbf{cost} ($\Pi_{i}^{t}$) \textbf{then}\\
+\quad $Population(t+1)\leftarrow Population(t) \backslash \{\Pi_{i}^{t}\} \cup \{\Pi_{i}^{new}\}$\\
+\quad \textbf{Else}\\
+\quad $Population(t+1) \leftarrow Population(t)$\\
+\quad \textbf{End if}\\
+\quad $t \leftarrow t+1$\\
+\textbf{Until} stop\_condition
 \end{tabular}
 \end{center}
 \end{frame}
 
 
+\begin{frame}[t]{MAB for Solving QAP} %\vspace{10pt}
+\textbf{How to BUILD\_SOLUTION Based on Solution's Memory}
+\footnotesize
+\begin{itemize}
+\item Local Assignment Cost Matrices \& Local Assignment Pull-count Matrices
+\end{itemize}
+\begin{equation}
+\bar{C}^{t}(\ell)=
+\left[ \begin{array}{ll}
+c_{11} \quad \cdots \quad c_{1N}\\
+c_{21} \quad \cdots \quad c_{2N}\\
+\vdots  \quad \quad \ddots \quad \quad \vdots\\
+c_{N1}  \quad \cdots \quad c_{NN}
+\end{array} \right], \quad
+P^{t}(\ell)=
+\left[ \begin{array}{ll}
+p_{11} \quad \cdots \quad p_{1N}\\
+p_{21} \quad \cdots \quad p_{2N}\\
+\vdots  \quad \quad \ddots \quad \quad \vdots\\
+p_{N1}  \quad \cdots \quad p_{NN}
+\end{array} \right]
+\end{equation}
+\begin{equation}
+\bar{C}^{t}(\ell)=w\bar{C}^{t}(\ell)+(1-w)\hat{C}^{t}(\ell)
+\end{equation}
+\begin{equation}
+\bar{C}^{2}(1)=0.5
+\left[ \begin{array}{ll}
+10 \quad \times \quad \times\\
+\times \quad \times \quad 10\\
+\times \quad 10 \quad \ \times\\
+\end{array} \right]
++0.5\left[ \begin{array}{ll}
+\times \quad \times \quad 5\\
+5 \quad \ \times \quad \times\\
+\times \quad \ 5 \quad \ \times\\
+\end{array} \right]
+= \left[ \begin{array}{ll}
+5 \quad \ \ \times \quad \ 2.5\\
+2.5 \quad \ \times \quad 10\\
+\times \quad \ 7.5 \quad \ \times\\
+\end{array} \right]
+\end{equation}
+\begin{equation}
+Cost_{ij}^{t}=\frac{\bar{c}_{ij}^{t}(\ell)-min_{(s,t)\in A^t}(\bar{c}_{st}^{t}(\ell))}{max_{(s,t)\in A^t}(\bar{c}_{st}^{t}(\ell))-min_{(s,t)\in A^t}(\bar{c}_{st}^{t}(\ell))}+
+\sqrt{\frac{p_{ij}^{t}(\ell)}{c\times ln\sum_{(s,t)\in A^t}p_{st}^{t}(\ell)}}
+\end{equation}
+\end{frame}
 
 
+\begin{frame}[t]{Conclusion} %\vspace{10pt}
+\begin{enumerate}
+\item Introduction to Reinforcement Learning
+		\begin{itemize}
+		\item Origin \& Goals		
+		\item Reinforcement Learning vs Supervised Learning		
+		\item Exploration vs Exploitation		
+		\item A Single State Example
+		\end{itemize}		
+\item Multi-Armed Bandit (MAB)
+		\begin{itemize}		
+		\item Problem Statement
+			\begin{itemize}
+			\item Epsilon Greedy		
+			\item Upper Convergence Bound
+			\end{itemize}
+		\end{itemize}		
+\item Quadratic Assignment Problem (QAP)
+		\begin{itemize}
+		\item Problem Statement		
+			\begin{itemize}		
+			\item MAB for Solving QAP			
+			\end{itemize}
+		\end{itemize}
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[t]{Conclusion} \vspace{30pt}
+\Huge
+\begin{center}
+Any Question?
+\end{center}
+\end{frame}
 
 \end{document}
